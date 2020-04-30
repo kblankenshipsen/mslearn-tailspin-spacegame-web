@@ -9,23 +9,24 @@ trigger:
 pool:
   vmImage: 'ubuntu-16.04'
   demands:
-    - npm
+  - npm
 
 variables:
   buildConfiguration: 'Release'
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Use .Net Core SDK 3.1.100'
+  displayName: 'Use .NET Core SDK 3.1.100'
   inputs:
     packageType: sdk
     version: 3.1.100
+
 - task: Npm@1
   displayName: 'Run npm install'
   inputs:
     verbose: false
 
-- script: './node_modules/.bin/node-sass Tailspin.SpaceGame.web/wwwroot --output Tailsping.SpaceGame.Web/wwwroot'
+- script: './node_modules/.bin/node-sass Tailspin.SpaceGame.Web/wwwroot --output Tailspin.SpaceGame.Web/wwwroot'
   displayName: 'Compile Sass assets'
 
 - task: gulp@1
@@ -38,7 +39,7 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: 'Restore project dependencies'
   inputs:
-    commmand: 'restore'
+    command: 'restore'
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
